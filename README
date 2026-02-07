@@ -1,0 +1,50 @@
+## 🧠 Network Behavior Modeling for AI Security
+
+A core objective of this project is to **twin real and simulated networks** in order to generate high-quality behavioral data for **training AI models to detect malicious and anomalous network activity**.
+
+Instead of inspecting packet payloads, the system focuses on **traffic behavior and metadata**, which is safer, scalable, and aligned with modern defensive security practices.
+
+---
+
+### 🔹 Normal Network Behavior (Baseline)
+
+The Digital Twin learns and models what *healthy* network traffic looks like, including:
+
+- **Packet rate** – Average and peak packets per second
+- **Protocol distribution** – Typical ratios of TCP / UDP / ICMP traffic
+- **Session duration** – Normal connection lifetimes
+- **Latency & jitter** – Expected response times and variation
+- **Retry patterns** – Normal retransmission behavior
+- **DNS request frequency** – Standard domain resolution patterns
+- **TLS handshake behavior** – Legitimate encrypted session setup characteristics
+
+These metrics form the **baseline profile** used by the AI model.
+
+---
+
+### 🔹 Abnormal / Suspicious Network Behavior
+
+The system also models and simulates deviations from the baseline, which may indicate malicious or misconfigured activity:
+
+- **Sudden traffic spikes** – Abnormal surges in packet rate
+- **Unusual protocol mix** – Unexpected protocol ratios
+- **Repeated failed connections** – Authentication or connection failures
+- **High entropy payload sizes** – Indicators of obfuscation or tunneling
+- **Timing anomalies** – Irregular or unnatural traffic intervals
+- **Connection floods** – Excessive simultaneous connections
+- **Beacon-like periodic traffic** – Repeated, timed outbound signals
+
+These behaviors are used to **label events**, **train anomaly-detection models**, and **evaluate AI predictions**.
+
+---
+
+### 🧪 Why Digital Network Twins Matter
+
+By using Digital Network Twins, the project enables:
+
+- Safe and controlled simulation of abnormal traffic
+- Accurate labeling of normal vs suspicious behavior
+- Repeatable experiments for AI training and evaluation
+- Continuous retraining as network conditions evolve
+
+This approach supports **behavior-based threat detection**, which is more resilient than traditional signature-based systems.
