@@ -15,6 +15,22 @@ A comprehensive guide to building an IoT Digital Twin Network using MQTT, Python
 - [API Documentation](#api-documentation)
 - [Troubleshooting](#troubleshooting)
 - [Next Steps](#next-steps)
+ - [Project Phases](#project-phases)
+---
+
+## 🧭 Project Phases
+
+See [PHASE.MD](PHASE.MD) for full details. Summary:
+
+- **Phase 1 (Now)**
+   - MQTT → Twin Engine
+   - Flask API
+
+- **Phase 2**
+   - Twin Engine → Kafka (telemetry + events)
+
+- **Phase 3**
+   - Kafka → DB → Grafana dashboards
 
 ---
 
