@@ -1,6 +1,6 @@
-# Network Security Digital Twin - AI-Powered Threat Detection
+# A Behavioral AI-Powered Network Digital Twin for Detecting Reconnaissance, DPI-Style Activity, and Emerging Threat Patterns
 
-A comprehensive platform for **mirroring real network environments** to observe, simulate, and analyze traffic behavior for **AI/ML-based security threat detection** without impacting production systems.
+A comprehensive platform for **mirroring real network environments** to observe, simulate, and analyze behavioral indicators using **AI/ML-based security intelligence** to detect reconnaissance and DPI-style inspection activity without impacting production systems.
 
 ## 📋 Table of Contents
 
@@ -25,13 +25,13 @@ A comprehensive platform for **mirroring real network environments** to observe,
 
 ![Network Security Digital Twin Architecture](images/digital-twin-architecture.jpg)
 
-This project implements a **Network Security Digital Twin** - a virtual replica of production networks that enables:
+This project implements an **AI-driven Network Behavioral Digital Twin** - a virtual replica of production networks that enables:
 
 - **Safe threat emulation** and red-teaming exercises without production impact
-- **AI/ML-based anomaly detection** using behavioral analysis
-- **DPI-inspired feature extraction** from traffic metadata (without payload inspection)
+- **AI/ML-based behavioral anomaly detection** for reconnaissance and inspection activity identification
+- **DPI-style activity fingerprinting** from traffic metadata (without payload inspection)
 - **Cyber-range capabilities** for security training and validation
-- **Privacy-preserving analysis** using flow data and metadata
+- **Privacy-preserving analysis** using behavioral metadata and flow data
 - **Real-time and accelerated simulation** for rapid scenario testing
 
 ### What is a Network Digital Twin?
@@ -85,17 +85,53 @@ These metrics form the **baseline profile** used by the AI model.
 
 ### 🔹 Abnormal / Suspicious Network Behavior
 
-The system also models and simulates deviations from the baseline, which may indicate malicious or misconfigured activity:
+The system also models and simulates deviations from the baseline, which may indicate malicious, misconfigured, or reconnaissance/inspection activity:
 
 - **Sudden traffic spikes** – Abnormal surges in packet rate
 - **Unusual protocol mix** – Unexpected protocol ratios
 - **Repeated failed connections** – Authentication or connection failures
+- **High SYN-to-ACK ratio** – Potential active reconnaissance or incomplete handshakes
+- **Repeated incomplete handshakes** – Multiple failed connection attempts
+- **Rapid protocol switching** – Unusual changes in protocol usage patterns
+- **TLS ClientHello variations across hosts** – Fingerprinting behavior detection
+- **Suspicious MTU discovery behavior** – Path MTU discovery anomalies
+- **Fragmentation inconsistencies** – Unusual packet fragmentation patterns
+- **Abnormal port sweep patterns** – Sequential port scanning activity
+- **Banner grabbing patterns** – Service enumeration indicators
 - **High entropy payload sizes** – Indicators of obfuscation or tunneling
 - **Timing anomalies** – Irregular or unnatural traffic intervals
 - **Connection floods** – Excessive simultaneous connections
-- **Beacon-like periodic traffic** – Repeated, timed outbound signals
+- **Beacon-like periodic traffic** – Repeated, timed outbound signals (C2 patterns)
 
-These behaviors are used to **label events**, **train anomaly-detection models**, and **evaluate AI predictions**.
+These behaviors are used to **label events**, **train anomaly-detection models**, **identify DPI-style activity**, and **evaluate AI predictions**.
+
+---
+
+### 🔹 DPI Behavior Detection Engine
+
+The Digital Twin does **not** perform deep packet inspection of payload content. Instead, it models and analyzes network behavior to detect signs of:
+
+- **Active reconnaissance** – Multiple probing attempts and topology discovery
+- **Protocol fingerprinting** – Unusual protocol sequencing and behavior
+- **Traffic probing** – Systematic port and service enumeration
+- **Banner grabbing** – Service version and capability discovery attempts
+- **TLS manipulation attempts** – Unusual ClientHello patterns and cipher negotiation
+- **Fragmentation analysis** – Abnormal packet fragmentation for evasion
+- **Low-and-slow inspection techniques** – Distributed, time-delayed reconnaissance
+- **Unusual handshake sequences** – Connection setup anomalies
+
+The system focuses on identifying the **behavioral fingerprints of inspection activity** rather than analyzing packet contents directly.
+
+---
+
+### 🔹 Privacy-Preserving Design
+
+The Digital Twin operates on **behavioral metadata** rather than packet payload content. This approach:
+
+- **Reduces privacy risks** – No sensitive payload retention
+- **Avoids encryption limitations** – Works with encrypted traffic patterns
+- **Improves scalability** – Lightweight metadata processing
+- **Enhances compliance** – Aligns with data protection regulations (GDPR, CCPA, etc.)
 
 ---
 
@@ -104,13 +140,14 @@ These behaviors are used to **label events**, **train anomaly-detection models**
 By using Network Digital Twins, the project enables:
 
 - **Safe simulation** - Test threats without production impact
-- **Accurate labeling** - Clear normal vs suspicious behavior classification
+- **Accurate labeling** - Clear normal vs suspicious vs reconnaissance behavior classification
 - **Repeatable experiments** - Consistent AI training and evaluation
 - **Continuous learning** - Retraining as network conditions evolve
-- **Privacy preservation** - Metadata analysis without payload inspection
+- **Privacy preservation** - Behavioral metadata analysis without payload inspection
 - **Threat emulation** - Controlled attack scenarios for testing
+- **Reconnaissance detection** - Identify DPI-style and active inspection activity
 
-This approach supports **behavior-based threat detection**, which is more resilient than traditional signature-based systems.
+This approach supports **behavior-based threat detection**, which is more resilient than traditional signature-based systems and better suited for identifying emerging threats.
 
 ---
 
@@ -164,7 +201,7 @@ This approach supports **behavior-based threat detection**, which is more resili
 │  │  │  - Baseline modeling (normal behavior)                     │  │  │
 │  │  │  - Anomaly detection (statistical + ML)                    │  │  │
 │  │  │  - Protocol behavior analysis                              │  │  │
-│  │  │  - DPI-inspired feature extraction (metadata-based)        │  │  │
+│  │  │  - DPI-behavior fingerprinting (metadata-based)           │  │  │
 │  │  │  - Threat classification models                            │  │  │
 │  │  │  - Risk scoring & explainability                           │  │  │
 │  │  └────────────────────────────────────────────────────────────┘  │  │
@@ -215,7 +252,7 @@ This approach supports **behavior-based threat detection**, which is more resili
 
 | Layer | Purpose | Technologies |
 |-------|---------|--------------|
-| **Data Plane** | Collect network traffic and events | NetFlow/IPFIX, sFlow, PCAP, IDS/IPS, DPI sensors |
+| **Data Plane** | Collect network traffic and events | NetFlow/IPFIX, sFlow, PCAP, IDS/IPS, behavioral sensors |
 | **Ingestion** | Normalize and stream data | MQTT (Mosquitto), Kafka (Phase 2), Data Lake |
 | **Twin Engine** | Model network topology and behavior | Python, Graph DB (Neo4j), Time-series DB |
 | **AI/ML Analytics** | Detect anomalies and threats | scikit-learn, TensorFlow/PyTorch, Feature stores |
@@ -516,7 +553,7 @@ pip3 install -r requirements.txt
   - Retry pattern detection
   - DNS request frequency monitoring
   - TLS handshake behavior analysis
-- 🔲 **Feature extraction pipeline** - DPI-inspired metadata extraction
+- 🔲 **Feature extraction pipeline** - Behavioral metadata extraction and fingerprinting
 - 🔲 **Time-series database** - Historical behavior storage
 
 **Network Behavior Metrics (Normal)**:
@@ -592,26 +629,27 @@ pip3 install -r requirements.txt
 
 ---
 
-### 🚀 Phase 5 - Advanced DPI & Operations
+### 🚀 Phase 5 - Advanced Behavioral Detection & Operations
 
-**Goal**: Deep protocol inspection and production readiness
+**Goal**: Behavioral fingerprinting, reconnaissance detection, and production readiness
 
 **Components**:
-- 🔲 **DPI-inspired deep analysis**:
-  - Protocol sequence anomaly detection
-  - Tunnel anomaly identification
-  - Advanced payload pattern recognition (metadata-based)
-- 🔲 **Continuous learning pipeline** - Model drift detection
+- 🔲 **Advanced behavioral analysis**:
+  - Protocol sequence anomaly detection for reconnaissance
+  - Tunnel and covert channel detection
+  - DPI-style activity fingerprinting (behavior-based)
+  - Inspection technique identification
+- 🔲 **Continuous learning pipeline** - Model drift detection and adaptation
 - 🔲 **Data governance framework**:
   - Access control & audit trails
-  - Privacy-preserving data handling
-  - Compliance reporting (GDPR, etc.)
-- 🔲 **Multi-domain support** - Cross-organization data sharing
+  - Privacy-preserving behavioral data handling
+  - Compliance reporting (GDPR, CCPA, etc.)
+- 🔲 **Multi-domain support** - Cross-organization behavioral data sharing
 
 **Deliverables**:
-- Production-ready platform with governance
-- Continuous model training and deployment
-- Enterprise-grade security and compliance
+- Production-ready platform with behavioral governance
+- Continuous model training and deployment for emerging threats
+- Enterprise-grade security, privacy, and compliance
 
 ---
 
@@ -1056,7 +1094,78 @@ python3 -c "import paho.mqtt.client; import flask; print('OK')"
 
 ---
 
-## 📄 License
+## � Mouseworld Paper Research Integration
+
+This project integrates findings from the Mouseworld paper on network security dataset generation and analysis. The following high-priority modules are planned for implementation:
+
+### Phase 2A - Data Collection Enhancement
+1. **Flow-Based Feature Extraction** (`analytics/flow_feature_extractor.py`)
+   - ML-ready feature extraction from network flows
+   - NetFlow v9 parser
+   - Normalization and export to CSV/Parquet
+   - Features: packets/sec, bytes/sec, bytes/packet, protocol distribution
+
+2. **Metadata Logging & Collection** (`twins/metadata_collector.py`)
+   - Client/server metadata logging
+   - Attack metadata tracking
+   - Automatic flow labeling correlation
+
+3. **Advanced Labeling Module** (`analytics/auto_labeler.py`)
+   - IP-based, port-based, and timing-based labeling
+   - Multi-class label support (Normal, DDoS, malware, scanning, etc.)
+   - Automatic metadata correlation
+
+4. **Dataset Storage & Management** (`storage/dataset_manager.py`)
+   - CSV, NetFlow v9, Parquet format support
+   - Dataset versioning and cataloging
+   - Train/test split automation
+
+### Phase 2B - Traffic Generation
+5. **Traffic Profile Launcher** (`devices/traffic_launcher.py`)
+   - Traffic model definitions (linear, exponential, burst)
+   - Experiment duration control
+   - Attack/normal traffic mixing
+
+6. **Traffic Replay System** (`devices/traffic_replayer.py`)
+   - PCAP replay with field modification
+   - Rate control and looping
+   - Malware traffic injection
+
+7. **Attack Scenario Templates** (`scenarios/attack_scenarios.py`)
+   - DDoS scenarios (SYN, UDP, DNS amplification, Slowloris)
+   - Malware scenarios (exploit kits, ransomware, botnet C2)
+   - Network attacks (scanning, brute force, DNS poisoning)
+
+8. **Honeypot Integration** (`devices/honeypot_manager.py`)
+   - SSH honeypot (cowrie)
+   - Web honeypot (glastopf)
+   - Automatic malicious flow tagging
+
+### Phase 3A - ML Analytics
+9. **Anomaly Detection Algorithms** (`analytics/anomaly_detectors.py`)
+   - Isolation Forest (iForest)
+   - Local Outlier Factor (LOF)
+   - One-Class SVM (OCSVM)
+   - AUC metric calculation and ensemble methods
+
+10. **Real-Time Monitoring Console** (`dashboard/monitoring_console.py`)
+    - Live flow statistics visualization
+    - Anomaly detection alerts
+    - Experiment progress tracking
+    - ML model confidence scoring
+
+**Key Implementation Features from Mouseworld**:
+- Automatic labeling using IP ranges, time windows, and metadata
+- Mixed normal + attack traffic generation
+- NetFlow-compatible feature extraction
+- Dataset persistence for continuous learning
+- 99.5% AUC detection performance target
+
+See [DOCS/RESEARCH1.md](DOCS/RESEARCH1.md) for detailed specifications.
+
+---
+
+## �📄 License
 
 MIT License - Feel free to use and modify for your security research and projects.
 
@@ -1067,7 +1176,7 @@ Contributions welcome! This is an evolving platform for network security researc
 Areas for contribution:
 - Additional network behavior models
 - ML model implementations
-- DPI-inspired feature extractors
+- Behavioral metadata analyzers and DPI-style activity fingerprinters
 - Threat scenario generators
 - Visualization components
 - Integration connectors
